@@ -31,44 +31,58 @@ function playRound() {
 
     if (playerOption == computerOption) {
         console.log("Result: It's a tie!");
+        result = "Nobody";
+        return result;
     } else if ((playerOption == "rock") && (computerOption == "scissors")) {
-        console.log(`Result: ${playerOption} break ${computerOption}. ${player} wins this round.`);
-        return playerScore++;
+        console.log(`Result: ${playerOption} breaks ${computerOption}.`);
+        let result = player;
+        playerScore++;
+        return result;
     } else if ((playerOption == "rock") && (computerOption == "paper")) {
-        console.log(`Result: ${computerOption} covers ${playerOption}. ${computer} wins this round.`);
-        return computerScore++;
+        console.log(`Result: ${computerOption} covers ${playerOption}.`);
+        let result = computer;
+        computerScore++;
+        return result;
     } else if ((playerOption == "scissors") && (computerOption == "paper")) {
-        console.log(`Result: ${playerOption} cut ${computerOption}. ${player} wins this round.`);
-        return playerScore++;
+        console.log(`Result: ${playerOption} cut ${computerOption}.`);
+        let result = player;
+        playerScore++;
+        return result;
     } else if ((playerOption == "scissors") && (computerOption == "rock")) {
-        console.log(`Result: ${computerOption} breaks ${playerOption}. ${computer} wins this round.`);
-        return computerScore++;
+        console.log(`Result: ${computerOption} breaks ${playerOption}.`);
+        let result = computer;
+        computerScore++;
+        return result;
     } else if ((playerOption == "paper") && (computerOption == "scissors")) {
-        console.log(`Result: ${computerOption} cut ${playerOption}. ${computer} wins this round.`);
-        return playerScore++;
+        console.log(`Result: ${computerOption} cut ${playerOption}.`);
+        let result = computer;
+        computerScore++;
+        return result;
     } else if ((playerOption == "paper") && (computerOption == "rock")) {
-        console.log(`Result: ${playerOption} covers ${computerOption}. ${player} wins this round.`);
-        return computerScore++;
+        console.log(`Result: ${playerOption} covers ${computerOption}.`);
+        let result = player;
+        playerScore++;
+        return result;
     } else {
-        console.log("another choice.....")
-        return;
+        console.log(`${playerOption} doesn't match any of the options.`);
+        result = "Nobody";
+        return result;
     }
 }
 
 function game() {
     for (let i = 0; i < 5; i++) {
-        console.log(`ROUND: ${gameRound}`)
-        playRound();
-        gameRound++;
+        console.log(`ROUND: ${gameRound}`);
+        console.log(`${playRound()} wins round ${gameRound}!`);
         console.log(`Player's score: ${playerScore}. Computer's score: ${computerScore}.`);
+        gameRound++;
     }
     if (playerScore > computerScore) {
-        console.log(`${player} won ${playerScore} rounds and WINS the game!`);
-
+        console.log(`${player} won ${playerScore} round(s) and WINS the game!`);
     } else if (computerScore > playerScore) {
-        console.log(`${computer} won ${computerScore} rounds and WINS the game!`);
+        console.log(`${computer} won ${computerScore} round(s) and WINS the game!`);
     } else if (computerScore = playerScore) {
-        console.log("It's a tie. No one wins...");
+        console.log("The game ends in a draw!");
     }
 }
 
