@@ -13,15 +13,21 @@ function getComputerChoice(choice) {
 }
 
 function playerSelection() {
-    const playerOptions = prompt("Round : " + gameRound + " Choose: rock, paper, scissors");
-    const playerChoice = playerOptions.toLowerCase();
-    console.log(`${player} chose ${playerChoice}.`);
-    return playerChoice;
+    const playerOption = document.querySelectorAll("button");
+
+
+    playerOption.forEach((button) => {
+        button.addEventListener("click", () => {
+            const playerChoice = document.createElement("p");
+            playerChoice.textContent = `${player} chose ${button.innerText}.`;
+            return playerChoice;
+        });
+    });
 }
 
 function computerSelection() {
     const computerChoice = getComputerChoice(choicesArray);
-    console.log(`${computer} chose ${computerChoice}.`);
+    computerChoice.textContent = `${computer} chose ${computerChoice}.`;
     return computerChoice;
 }
 
@@ -70,6 +76,8 @@ function playRound() {
     }
 }
 
+playRound();
+
 // function game() {
 //     for (let i = 0; i < 5; i++) {
 //         console.log(`ROUND: ${gameRound}`);
@@ -88,33 +96,4 @@ function playRound() {
 
 // game();
 
-function runRock() {
-    const rockClick = document.createElement("p");
-    rockClick.textContent = "You've clicked Rock!";
-
-    showResults.appendChild(rockClick);
-}
-
-function runPaper() {
-    const paperClick = document.createElement("p");
-    paperClick.textContent = "You've clicked Paper!";
-
-    showResults.appendChild(paperClick);
-}
-
-function runScissors() {
-    const scissorsClick = document.createElement("p");
-    scissorsClick.textContent = "You've clicked Scissors!";
-
-    showResults.appendChild(scissorsClick);
-}
-
-const btnRock = document.querySelector(".btn-rock");
-const btnPaper = document.querySelector(".btn-paper");
-const btnScissors = document.querySelector(".btn-scissors");
-
 const showResults = document.querySelector(".results");
-
-btnRock.addEventListener('click', runRock);
-btnPaper.addEventListener('click', runPaper);
-btnScissors.addEventListener('click', runScissors);
