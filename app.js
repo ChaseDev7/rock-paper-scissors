@@ -13,25 +13,37 @@ function getComputerChoice(choice) {
 }
 
 function playerSelection() {
-    const playerOption = document.querySelectorAll("button");
-
-
-    playerOption.forEach((button) => {
-        button.addEventListener("click", () => {
-            const playerChoice = document.createElement("p");
-            playerChoice.textContent = `${player} chose ${button.innerText}.`;
-            return playerChoice;
-        });
-    });
+    
+    // btnPaper.addEventListener("click", runPaperCode);
+    
+    // function runPaperCode() {
+    //     const paperClick = document.createElement("div");
+    //     const paperButtonText = btnPaper.innerText;
+    //     const paperTextLower = paperButtonText.toLowerCase();
+    //     paperClick.textContent = `Player chose ${paperTextLower}.`;
+    //     showResults.appendChild(paperClick);
+    // }
+    
+    // btnScissors.addEventListener("click", runScissorsCode);
+    
+    // function runScissorsCode() {
+    //     const scissorsClick = document.createElement("div");
+    //     const scissorsButtonText = btnScissors.innerText;
+    //     const scissorsTextLower = scissorsButtonText.toLowerCase();
+    //     scissorsClick.textContent = `Player chose ${scissorsTextLower}.`;
+    //     showResults.appendChild(scissorsClick);
+    // }
 }
 
 function computerSelection() {
-    const computerChoice = getComputerChoice(choicesArray);
-    computerChoice.textContent = `${computer} chose ${computerChoice}.`;
-    return computerChoice;
+    const computerChoice = document.createElement("div");
+    const computerChoiceUpdate = getComputerChoice(choicesArray);
+    computerChoice.textContent = `${computer} chose ${computerChoiceUpdate}.`;
+    showResults.appendChild(computerChoice);
 }
 
 function playRound() {
+    showResults.textContent = `Round ${gameRound}.`;
     const playerOption = playerSelection();
     const computerOption = computerSelection();
 
@@ -76,24 +88,19 @@ function playRound() {
     }
 }
 
-playRound();
-
-// function game() {
-//     for (let i = 0; i < 5; i++) {
-//         console.log(`ROUND: ${gameRound}`);
-//         console.log(`${playRound()} wins round ${gameRound}!`);
-//         console.log(`Player's score: ${playerScore}. Computer's score: ${computerScore}.`);
-//         gameRound++;
-//     }
-//     if (playerScore > computerScore) {
-//         console.log(`${player} won ${playerScore} round(s) and WINS the game!`);
-//     } else if (computerScore > playerScore) {
-//         console.log(`${computer} won ${computerScore} round(s) and WINS the game!`);
-//     } else if (computerScore = playerScore) {
-//         console.log("The game ends in a draw!");
-//     }
-// }
-
-// game();
-
 const showResults = document.querySelector(".results");
+
+const btnRock = document.querySelector("#btn-rock");
+const btnPaper = document.querySelector("#btn-paper");
+const btnScissors = document.querySelector("#btn-scissors");
+    
+btnRock.addEventListener("click", runRockCode);
+    
+function runRockCode() {
+    // Drop's button text to lower case and displays player's choice
+    const rockClick = document.createElement("div");
+    const btnClickText = btnRock.innerText;
+    const buttonTextLower = btnClickText.toLowerCase();
+    rockClick.textContent = `Player chose ${buttonTextLower}.`;
+    showResults.appendChild(rockClick);
+}
