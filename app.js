@@ -59,20 +59,15 @@ buttons.forEach((button) => {
         checkWin();
 
         function checkWin() {
-            if (gameRound == 5) {
-                if (playerScore == computerScore) {
-                    whoWon.textContent = `GAME OVER: Nobody won! :(`;
-                    gameContainer.append(whoWon);
-                    whoWon.style.backgroundColor = "rgb(66, 15, 154)";
-                } else if (playerScore > computerScore) {
-                    whoWon.textContent = `GAME OVER: ${player} won! Congrats!`;
-                    gameContainer.append(whoWon);
-                    whoWon.style.backgroundColor = "rgb(6, 173, 25)";
-                } else if (computerScore > playerScore) {
-                    whoWon.textContent = `GAME OVER: ${computer} won! Try again!`;
-                    gameContainer.append(whoWon);
-                    whoWon.style.backgroundColor = "rgb(128, 9, 9)";
-                };
+            if (playerScore == 5) {
+                whoWon.textContent = `GAME OVER: ${player} won! Congrats!`;
+                gameContainer.append(whoWon);
+                whoWon.style.backgroundColor = "rgb(6, 173, 25)";
+                button.removeEventListener;
+            } else if (computerScore == 5)  {
+                whoWon.textContent = `GAME OVER: ${computer} won! Try again!`;
+                gameContainer.append(whoWon);
+                whoWon.style.backgroundColor = "rgb(128, 9, 9)";
                 button.removeEventListener;
             } else {
                 playRound(button.innerText.toLowerCase());
