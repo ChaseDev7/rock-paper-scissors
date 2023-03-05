@@ -46,15 +46,11 @@ function playRound(playerSelection) {
         whoWon.append(`RESULT: ${playerSelection} covers ${computerChoiceUpdate}.`);
         playerScore++;
     }
+    roundNumber++;
 }
 
 const gameContainer = document.querySelector(".container");
 const showResults = document.querySelector(".results");
-const chooseOneOption = document.querySelector(".choose-one-option");
-const gameOptions = document.querySelector(".game-options");
-const btnRock = document.querySelector("#btn-rock");
-const btnPaper = document.querySelector("#btn-paper");
-const btnScissors = document.querySelector("#btn-scissors");
 const buttons = document.querySelectorAll("button");
 const whoWon = document.querySelector(".game-win");
 
@@ -67,24 +63,46 @@ buttons.forEach((button) => {
                 if (playerScore == computerScore) {
                     whoWon.textContent = `GAME OVER: Nobody won! :(`;
                     gameContainer.append(whoWon);
+                    whoWon.style.backgroundColor = "rgb(66, 15, 154)";
                 } else if (playerScore > computerScore) {
                     whoWon.textContent = `GAME OVER: ${player} won! Congrats!`;
                     gameContainer.append(whoWon);
+                    whoWon.style.backgroundColor = "rgb(6, 173, 25)";
                 } else if (computerScore > playerScore) {
                     whoWon.textContent = `GAME OVER: ${computer} won! Try again!`;
                     gameContainer.append(whoWon);
+                    whoWon.style.backgroundColor = "rgb(128, 9, 9)";
                 };
-                gameContainer.removeChild(chooseOneOption);
-                gameOptions.removeChild(btnRock);
-                gameOptions.removeChild(btnPaper);
-                gameOptions.removeChild(btnScissors);
+                button.removeEventListener;
             } else {
                 playRound(button.innerText.toLowerCase());
-                const scoreUpdate = document.createElement("div");
-                scoreUpdate.textContent = `Player Score: ${playerScore} -- Computer Score: ${computerScore}`;
-                showResults.append(scoreUpdate);
-                roundNumber++;
+                const scoreCount = document.createElement("div");
+                scoreCount.textContent = "SCORES:"
+                whoWon.append(scoreCount);
+                const playerScoreUpdate = document.createElement("div");
+                playerScoreUpdate.textContent = `PLAYER  ${playerScore}`;
+                whoWon.append(playerScoreUpdate);
+                const computerScoreUpdate = document.createElement("div");
+                computerScoreUpdate.textContent = `COMPUTER  ${computerScore}`;
+                whoWon.append(computerScoreUpdate);
             }
         };
     });
 });
+
+buttons.removeEventListener;
+
+const resetButton = document.querySelector(".reset-button");
+resetButton.addEventListener("click", resetGame);
+
+function resetGame() {
+    showResults.textContent = "";
+    whoWon.textContent = "";
+    gameRound = 0;
+    roundNumber = 1;
+    playerScore = 0;
+    computerScore = 0;
+    whoWon.style.backgroundColor = "rgb(43, 57, 104)";
+}
+
+resetButton.removeEventListener;
