@@ -1,8 +1,9 @@
-player = "Player";
-computer = "Computer";
-playerScore = 0;
-computerScore = 0;
-gameRound = 1;
+const player = "PLAYER";
+const computer = "COMPUTER";
+let playerScore = 0;
+let computerScore = 0;
+let gameRound = 0;
+let roundNumber = 1;
 
 const choicesArray = ["rock", "paper", "scissors"];
 
@@ -12,95 +13,78 @@ function getComputerChoice(choice) {
     return compChoice;
 }
 
-function playerSelection() {
-    
-    // btnPaper.addEventListener("click", runPaperCode);
-    
-    // function runPaperCode() {
-    //     const paperClick = document.createElement("div");
-    //     const paperButtonText = btnPaper.innerText;
-    //     const paperTextLower = paperButtonText.toLowerCase();
-    //     paperClick.textContent = `Player chose ${paperTextLower}.`;
-    //     showResults.appendChild(paperClick);
-    // }
-    
-    // btnScissors.addEventListener("click", runScissorsCode);
-    
-    // function runScissorsCode() {
-    //     const scissorsClick = document.createElement("div");
-    //     const scissorsButtonText = btnScissors.innerText;
-    //     const scissorsTextLower = scissorsButtonText.toLowerCase();
-    //     scissorsClick.textContent = `Player chose ${scissorsTextLower}.`;
-    //     showResults.appendChild(scissorsClick);
-    // }
-}
-
-function computerSelection() {
-    const computerChoice = document.createElement("div");
+function playRound(playerSelection) {
+    gameRound++;
+    showResults.textContent = `Round ${roundNumber}.`;
+    const playerPick = document.createElement("div");
+    playerPick.textContent = `${player} chose ${playerSelection}.`
+    showResults.appendChild(playerPick);
+    const computerOption = document.createElement("div");
     const computerChoiceUpdate = getComputerChoice(choicesArray);
-    computerChoice.textContent = `${computer} chose ${computerChoiceUpdate}.`;
-    showResults.appendChild(computerChoice);
-}
+    computerOption.textContent = `${computer} chose ${computerChoiceUpdate}.`;
+    showResults.appendChild(computerOption);
+    whoWon.textContent = "";
 
-function playRound() {
-    showResults.textContent = `Round ${gameRound}.`;
-    const playerOption = playerSelection();
-    const computerOption = computerSelection();
-
-    if (playerOption == computerOption) {
-        console.log("Result: It's a tie!");
-        result = "Nobody";
-        return result;
-    } else if ((playerOption == "rock") && (computerOption == "scissors")) {
-        console.log(`Result: ${playerOption} breaks ${computerOption}.`);
-        let result = player;
+    if (playerSelection == computerChoiceUpdate) {
+        whoWon.append("RESULT: It's a tie!");
+    } else if ((playerSelection == "rock") && (computerChoiceUpdate == "scissors")) {
+        whoWon.append(`RESULT: ${playerSelection} breaks ${computerChoiceUpdate}.`);
         playerScore++;
-        return result;
-    } else if ((playerOption == "rock") && (computerOption == "paper")) {
-        console.log(`Result: ${computerOption} covers ${playerOption}.`);
-        let result = computer;
+    } else if ((playerSelection == "rock") && (computerChoiceUpdate == "paper")) {
+        whoWon.append(`RESULT: ${computerChoiceUpdate} covers ${playerSelection}.`);
         computerScore++;
-        return result;
-    } else if ((playerOption == "scissors") && (computerOption == "paper")) {
-        console.log(`Result: ${playerOption} cut ${computerOption}.`);
-        let result = player;
+    } else if ((playerSelection == "scissors") && (computerChoiceUpdate == "paper")) {
+        whoWon.append(`RESULT: ${playerSelection} cut ${computerChoiceUpdate}.`);
         playerScore++;
-        return result;
-    } else if ((playerOption == "scissors") && (computerOption == "rock")) {
-        console.log(`Result: ${computerOption} breaks ${playerOption}.`);
-        let result = computer;
+    } else if ((playerSelection == "scissors") && (computerChoiceUpdate == "rock")) {
+        whoWon.append(`RESULT: ${computerChoiceUpdate} breaks ${playerSelection}.`);
         computerScore++;
-        return result;
-    } else if ((playerOption == "paper") && (computerOption == "scissors")) {
-        console.log(`Result: ${computerOption} cut ${playerOption}.`);
-        let result = computer;
+    } else if ((playerSelection == "paper") && (computerChoiceUpdate == "scissors")) {
+        whoWon.append(`RESULT: ${computerChoiceUpdate} cut ${playerSelection}.`);
         computerScore++;
-        return result;
-    } else if ((playerOption == "paper") && (computerOption == "rock")) {
-        console.log(`Result: ${playerOption} covers ${computerOption}.`);
-        let result = player;
+    } else if ((playerSelection == "paper") && (computerChoiceUpdate == "rock")) {
+        whoWon.append(`RESULT: ${playerSelection} covers ${computerChoiceUpdate}.`);
         playerScore++;
-        return result;
-    } else {
-        console.log(`${playerOption} doesn't match any of the options.`);
-        result = "Nobody";
-        return result;
     }
 }
 
+const gameContainer = document.querySelector(".container");
 const showResults = document.querySelector(".results");
-
+const chooseOneOption = document.querySelector(".choose-one-option");
+const gameOptions = document.querySelector(".game-options");
 const btnRock = document.querySelector("#btn-rock");
 const btnPaper = document.querySelector("#btn-paper");
 const btnScissors = document.querySelector("#btn-scissors");
-    
-btnRock.addEventListener("click", runRockCode);
-    
-function runRockCode() {
-    // Drop's button text to lower case and displays player's choice
-    const rockClick = document.createElement("div");
-    const btnClickText = btnRock.innerText;
-    const buttonTextLower = btnClickText.toLowerCase();
-    rockClick.textContent = `Player chose ${buttonTextLower}.`;
-    showResults.appendChild(rockClick);
-}
+const buttons = document.querySelectorAll("button");
+const whoWon = document.querySelector(".game-win");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        checkWin();
+
+        function checkWin() {
+            if (gameRound == 5) {
+                if (playerScore == computerScore) {
+                    whoWon.textContent = `GAME OVER: Nobody won! :(`;
+                    gameContainer.append(whoWon);
+                } else if (playerScore > computerScore) {
+                    whoWon.textContent = `GAME OVER: ${player} won! Congrats!`;
+                    gameContainer.append(whoWon);
+                } else if (computerScore > playerScore) {
+                    whoWon.textContent = `GAME OVER: ${computer} won! Try again!`;
+                    gameContainer.append(whoWon);
+                };
+                gameContainer.removeChild(chooseOneOption);
+                gameOptions.removeChild(btnRock);
+                gameOptions.removeChild(btnPaper);
+                gameOptions.removeChild(btnScissors);
+            } else {
+                playRound(button.innerText.toLowerCase());
+                const scoreUpdate = document.createElement("div");
+                scoreUpdate.textContent = `Player Score: ${playerScore} -- Computer Score: ${computerScore}`;
+                showResults.append(scoreUpdate);
+                roundNumber++;
+            }
+        };
+    });
+});
