@@ -47,45 +47,51 @@ function playRound(playerSelection) {
         playerScore++;
     }
     roundNumber++;
+    const scoreCount = document.createElement("div");
+    scoreCount.textContent = "SCORES:"
+    whoWon.append(scoreCount);
+    const playerScoreUpdate = document.createElement("div");
+    playerScoreUpdate.textContent = `PLAYER  ${playerScore}`;
+    whoWon.append(playerScoreUpdate);
+    const computerScoreUpdate = document.createElement("div");
+    computerScoreUpdate.textContent = `COMPUTER  ${computerScore}`;
+    whoWon.append(computerScoreUpdate);
+    checkWin();
 }
 
 const gameContainer = document.querySelector(".container");
 const showResults = document.querySelector(".results");
 const buttons = document.querySelectorAll("button");
 const whoWon = document.querySelector(".game-win");
+const textInfo = document.querySelector(".text-info");
+const gameOptionsContainer = document.querySelector(".game-options");
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         checkWin();
-
-        function checkWin() {
-            if (playerScore == 5) {
-                whoWon.textContent = `GAME OVER: ${player} won! Congrats!`;
-                gameContainer.append(whoWon);
-                whoWon.style.backgroundColor = "rgb(6, 173, 25)";
-                button.removeEventListener;
-            } else if (computerScore == 5)  {
-                whoWon.textContent = `GAME OVER: ${computer} won! Try again!`;
-                gameContainer.append(whoWon);
-                whoWon.style.backgroundColor = "rgb(128, 9, 9)";
-                button.removeEventListener;
-            } else {
-                playRound(button.innerText.toLowerCase());
-                const scoreCount = document.createElement("div");
-                scoreCount.textContent = "SCORES:"
-                whoWon.append(scoreCount);
-                const playerScoreUpdate = document.createElement("div");
-                playerScoreUpdate.textContent = `PLAYER  ${playerScore}`;
-                whoWon.append(playerScoreUpdate);
-                const computerScoreUpdate = document.createElement("div");
-                computerScoreUpdate.textContent = `COMPUTER  ${computerScore}`;
-                whoWon.append(computerScoreUpdate);
-            }
-        };
+        playRound(button.innerText.toLowerCase());
     });
 });
 
-buttons.removeEventListener;
+function checkWin() {
+    if (playerScore == 5) {
+        showResults.textContent = `Game ended at ${gameRound} rounds.`;
+        whoWon.textContent = "";
+        whoWon.textContent = `GAME OVER: ${player} won 5 rounds! Congrats!`;
+        gameContainer.append(whoWon);
+        whoWon.style.backgroundColor = "rgb(6, 173, 25)";
+        buttons.removeEventListener();
+    
+        
+    } else if (computerScore == 5)  {
+        showResults.textContent = `Game ended at ${gameRound} rounds.`;
+        whoWon.textContent = "";
+        whoWon.textContent = `GAME OVER: ${computer} won 5 rounds! Try again!`;
+        gameContainer.append(whoWon);
+        whoWon.style.backgroundColor = "rgb(128, 9, 9)";
+        buttons.removeEventListener();
+    }
+};
 
 const resetButton = document.querySelector(".reset-button");
 resetButton.addEventListener("click", resetGame);
@@ -98,6 +104,7 @@ function resetGame() {
     playerScore = 0;
     computerScore = 0;
     whoWon.style.backgroundColor = "rgb(43, 57, 104)";
+    textInfo.textContent = "First to score 5 wins the game. Click a button below to start game:";
 }
 
 resetButton.removeEventListener;
